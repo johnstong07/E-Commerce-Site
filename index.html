@@ -50,6 +50,8 @@
 
     <div class="container mt-5">
       <h1>Products</h1>
+
+    <!--Row 1-->
       <div class="row" id="product-list">
         <!-- Products will be dynamically inserted here -->
         <div class="col-md-4">
@@ -63,6 +65,7 @@
               </div>
           </div>
       </div>
+    
       </div>
     </div>
 
@@ -76,7 +79,29 @@
     ></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        
+        const productList = document.querySelector('#product-list')
+        let productHTML = ''
+        fetch('products.json')
+        .then(response => response.json())
+        .then(data => {
+          // console.log(data)
+          data.products.forEach(product => {
+            console.log(product.name)
+            productHTML += ` <div class="col-md-4">
+          <div class="card mb-4">
+              <img src="https://placehold.co/100" class="card-img-top" alt="Product 1">
+              <div class="card-body">
+                  <h5 class="card-title">Product 1</h5>
+                  <p class="card-text">$1699.99</p>
+                  <p class="card-text">Description for product 1</p>
+                  <button class="btn btn-primary add-to-cart" data-id="1">Add to Cart</button>
+              </div>
+          </div>
+      </div>
+       `
+          })
+          productList.innerHTML = productHTML
+        })
         });
     </script>
   </body>
