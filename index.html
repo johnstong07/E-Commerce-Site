@@ -43,6 +43,23 @@
     <div class="container mt-5">
       <h2>Cart</h2>
       <div id="cart-list">
+        <div class="cart-item">
+          <h5>Product 1</h5>
+          <p>$10.99 x 2</p>
+          <button class =  "btn btn-secondary increase-quantity"
+          data-id="1">
+           +
+        </button>
+        <button class =  "btn btn-secondary decrease-quantity"
+        data-id="1">
+         -
+      </button>
+      <button class =  "btn btn-danger remove-from-cart"
+      data-id="1">
+       Remove
+    </button>
+
+        </div>
         <!-- Cart items will be dynamically inserted here -->
       </div>
       <button class="btn btn-primary" id="checkout-button">Checkout</button>
@@ -87,7 +104,7 @@
         .then((data) => {
           // console.log(data)
           productsData = data.products
-          data.products.forEach(product => {
+          data.products.forEach((product) => {
           productHTML += 
           ` <div class="col-md-4">
           <div class="card mb-4">
@@ -96,7 +113,7 @@
                   <h5 class="card-title">${product.name}</h5>
                   <p class="card-text">${product.price}</p>
                   <p class="card-text">${product.description}</p>
-                  <button class="btn btn-primary add-to-cart" data-id="1">Add to Cart</button>
+                  <button class="btn btn-primary add-to-cart" data-id="${product.id}">Add to Cart</button>
               </div>
           </div>
       </div>
@@ -104,14 +121,21 @@
       
           })
           productList.innerHTML = productHTML;
-         
+         document.querySelectorAll('.add-to-cart').forEach
+         ((button) => {
+          button.addEventListener('click', addToCart);
+         });
         });
+
+      //  setup cart array
         const cart = []
+
+        //Add cart product to cart as object
         function addToCart(event){
-          console.log(event.target.getAttribute('data-id'));
+          console.log("")
           const productId = event.target.getAttribute('data-id')
           const product = productsData[productId - 1]
-
+           console.log(product, productId)
           let cartItem = {
             name: product.name,
           };
@@ -121,9 +145,28 @@
         }
 
         function renderCart(){
-          const cartItem = '';
+          const cartList = document.getElementById('cart-list');
+          let cartItem = '';
           cart.forEach((product) => {
-            cartItem += `<p>${product.name}</p>`;
+            cartItem += `
+              <div class="cart-item">
+          <h5>Product 1</h5>
+          <p>$10.99 x 2</p>
+          <button class =  "btn btn-secondary increase-quantity"
+          data-id="1">
+           +
+        </button>
+        <button class =  "btn btn-secondary decrease-quantity"
+        data-id="1">
+         -
+      </button>
+      <button class =  "btn btn-danger remove-from-cart"
+      data-id="1">
+       Remove
+    </button>
+
+        </div>
+           `;
           })
           cartList.innerHTML = cartItem
         }
