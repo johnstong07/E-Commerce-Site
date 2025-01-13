@@ -41,7 +41,6 @@
     </nav>
 
     <div class="container mt-5">
-      <form action="checkout.html" method="get">
       <h2>Cart</h2>
       <div id="cart-list">
         <div class="cart-item">
@@ -64,29 +63,18 @@
         <!-- Cart items will be dynamically inserted here -->
       </div>
       <button class="btn btn-primary" id="checkout-button">Checkout</button>
-</form>
-</div>
-    <div class="container mt-5">
-      <h1>Products</h1>
-
-    <!--Row 1-->
-      <div class="row" id="product-list">
-        <!-- Products will be dynamically inserted here -->
-        <div class="col-md-4">
-          <div class="card mb-4">
-              <img src="https://placehold.co/100" class="card-img-top" alt="Product 1">
-              <div class="card-body">
-                  <h5 class="card-title">Product 1</h5>
-                  <p class="card-text">$10.99</p>
-                  <p class="card-text">Description for product 1</p>
-                  <button class="btn btn-primary add-to-cart" data-id="1">Add to Cart</button>
-              </div>
-          </div>
-      </div>
-
-      </div>
     </div>
 
+    <div class="container mt-5">
+      <form action = "checkout.html" method="get">
+    <label for="firstName">First Name</label>
+    <input type="text" name ="firstName" value="" /><br />
+    <label for="lastName">Last Name</label>
+    <input type="text" name="lastName" value="" /><br />
+    <button type ="submit">submit</button>
+  </form>
+    </div>
+ 
     <footer class="bg-light text-center py-3">
       <p>&copy; 2025 E-commerce Website. All rights reserved.</p>
     </footer>
@@ -129,11 +117,11 @@
         });
 
       //  setup cart array
-        const cart = [];
+        const cart = []
 
         //Add cart product to cart as object
         function addToCart(event){
-          console.log("");
+          console.log("")
           const productId = event.target.getAttribute('data-id')
           const product = productsData[productId - 1]
            console.log(product, productId)
@@ -152,12 +140,9 @@
           let cartItem = '';
           cart.forEach((product) => {
             cartItem += `
-          <div class="cart-item">
+              <div class="cart-item">
           <h5>${product.name}</h5>
           <p>${product.price} </p>
-          <input type="hidden" name="id" value="${product.id}" />
-          <input type="hidden" name="name" value="${product.name}" />
-          <input type="hidden" name="price" value="${product.price}" />
           <button class =  "btn btn-danger remove-from-cart data-id="${product.id}">
             Remove
           </button>

@@ -176,7 +176,29 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        
+        const query = new URLSearchParams(window.location.search);
+        console.log(Array.from(query.entries()))
+        const cart = Array.from(query.entries())
+        function renderCart(){
+          const cartList = document.getElementById('cart-summary')
+          let cartItem = '';
+          let totalAmount = 0;
+          for (let [key, value] of cart){
+            console.log(key,value);
+            cartItem += `<p>${key}${value} </p>`
+
+            const amount = parseFloat(value);
+            if(!isNaN(amount)){
+              totalAmount += amount
+            }else{
+              console.warn(`Invalid value for ${key}: ${value}`);// Log warning for non-numeric values
+            }
+          }
+          cartList.innerHTML = cartItem
+
+          cartList.innerHTML += `<p><strong>Total Amount: ${totalAmount.toFixed(2)}</strong></p>`; // Display total
+        }
+        renderCart();
       });
     </script>
   </body>
