@@ -80,6 +80,7 @@
             type="text"
             class="form-control"
             id="address"
+            name="address"
             placeholder="Enter your address"
             required
           />
@@ -90,6 +91,7 @@
             type="text"
             class="form-control"
             id="apartment"
+            name="apartment"
             placeholder="Enter your apartment number (optional)"
           />
         </div>
@@ -99,13 +101,16 @@
             type="text"
             class="form-control"
             id="city"
+            name="city"
             placeholder="Enter your city"
             required
           />
         </div>
         <div class="form-group">
           <label for="state">State <span class="text-danger">*</span></label>
-          <select class="form-control" id="state" required>
+          <select class="form-control" id="state" 
+          name="state"
+          required>
             <option value="">Select your state</option>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
@@ -165,6 +170,7 @@
             type="text"
             class="form-control"
             id="zip"
+            name="zip"
             placeholder="Enter your zip code"
             required
           />
@@ -222,6 +228,29 @@
         <p>Total: $${total.toFixed(2)}</p>
       </div>
     `;
+
+    document
+    .querySelector('#checkout-form')
+    .addEventListener('submit', submitCart)
+
+    function submitCart(event){
+      event.preventDefault()
+      console.log('submitted')
+      fetch('users.json')
+      .then(response => response.json())
+      .then(data => {
+       const email = document.getElementById('email').value;
+       console.log(email)
+       const exists = data.some( user => user.email == email);
+       console.log(exists)
+       if(exists){
+        form.submit()
+       }else{
+        const errorMessage = document.getElementById('error-message')
+        errorMessage.innerHTML = 'User does not exist'
+       }
+      })
+    }
       });
     </script>
   </body>
