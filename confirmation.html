@@ -57,18 +57,56 @@
         const order = document.getElementById('order-summary');
 
   // Get the parameters from the URL
-  const names = urlParams.getAll('name');
-  const prices = urlParams.getAll('price');
-  const total = Number(urlParams.get('total'));
+  const ids = urlParams.getAll('id')
+ const names = urlParams.getAll('name')
+ const prices =  urlParams.getAll('price').map(parseFloat)
+ //If total comes out as NaN it will be fixed with the actual total
+ const total = prices.reduce((acc, price) => acc + (isNaN(price) ? 0 : price), 0);
   const email = urlParams.get('email');
-  const address = urlParams.get('address'); // Get the address from the URL
+  const address = urlParams.get('address'); 
+  const apartment = urlParams.get('apartment')
+  const city = urlParams.getAll('city')
+  const state = urlParams.getAll('state')
+  const zip = urlParams.getAll('zip')
+ 
 
-  // Display the order details along with the shipping address and email
+//Display the details of the shipping address and total
   order.innerHTML += `
     <div class="order-summary">
-      <p>Total: $${total.toFixed(2)}</p>
-      <p>Shipping Address: ${address}</p>
-      <p>Email: ${email}</p>
+    <p> <strong>Products: </strong></p>
+    <ul>
+      `;
+    
+     // Displays the items purchased with their price
+     for (let i = 0; i < ids.length; i++) {
+            if (names[i] && prices[i]) {
+                order.innerHTML += `
+                    <div class="cart-item">
+                        <h5>${names[i]} </h5>
+                        <p>Price: $${prices[i].toFixed(2)}</p>
+                        <input type="hidden" name="id" value="${ids[i]}" />
+                        <input type="hidden" name="name" value="${names[i]}" />
+                        <input type="hidden" name="price" value="${prices[i]}" />
+                    </div>
+                `;
+            }
+        }
+        
+          //Display the total
+          order.innerHTML += `
+          <div class = "total">
+          <h5>Total: $${total}</h5>
+            </div>
+          `
+
+   order.innerHTML += ` 
+   </ul>
+
+      <p><strong>Shipping Address:</strong> <hr>
+         ${address} ${city} ${state} ${zip}</p>
+      <p><strong>Email:</strong> 
+        <hr>
+         ${email}</p>
     </div>
   `;
       });
