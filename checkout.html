@@ -41,6 +41,7 @@
   </nav>
 
     <div class="container mt-5">
+      <form id ="checkout-form" action ="confirmation.html" method = "get">
       <h1>Checkout</h1>
       <div id="cart-summary">
         <!-- Cart summary will be dynamically inserted here -->
@@ -243,6 +244,8 @@
        console.log(email)
        const exists = data.some( user => user.email == email);
        console.log(exists)
+      const form = document.getElementById('checkout-form');
+      console.log(form)
        if(exists){
         form.submit()
        }else{

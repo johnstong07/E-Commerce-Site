@@ -53,8 +53,27 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-       
+        const urlParams = new URLSearchParams(window.location.search);
+        const order = document.getElementById('order-summary');
+
+  // Get the parameters from the URL
+  const names = urlParams.getAll('name');
+  const prices = urlParams.getAll('price');
+  const total = Number(urlParams.get('total'));
+  const email = urlParams.get('email');
+  const address = urlParams.get('address'); // Get the address from the URL
+
+  // Display the order details along with the shipping address and email
+  order.innerHTML += `
+    <div class="order-summary">
+      <p>Total: $${total.toFixed(2)}</p>
+      <p>Shipping Address: ${address}</p>
+      <p>Email: ${email}</p>
+    </div>
+  `;
       });
+
+    
     </script>
   </body>
 </html>
