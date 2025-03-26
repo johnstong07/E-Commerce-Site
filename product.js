@@ -8,3 +8,4 @@
 // - category (String)
 
 // TODO: Create and export the Product model
+

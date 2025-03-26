@@ -22,7 +22,9 @@
 // 1. Import express
 // 2. Import mongoose
 // 3. Import dotenv to load environment variables
-
+import express from 'express';
+import mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
 
 // Add this near your other imports at the top
 // TODO: Import user routes
@@ -30,7 +32,7 @@
 
 // TODO: Load environment variables
 // Hint: Use dotenv.config()
-otenv.config();
+dotenv.config();
 
 // TODO: Initialize Express app
 // Hint: const app = express();
@@ -42,20 +44,24 @@ const port = 3000;
 // 2. Serve static files from the 'public' directory
 app.use(express.json());
 
-// Add this after your middleware setup
-// TODO: Use the user routes with the path '/api'
-
 // TODO: Connect to MongoDB
 // Hint: Use mongoose.connect with your MONGODB_URI
 // Make sure to handle the connection promise with .then() and .catch()
-ongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
 // TODO: Define routes
 // For now, just create a simple root route that responds with a welcome message
-
+// Use routes
+app.use('/api', todoRouter);
+// Basic route
+app.get('/', (req, res) => {
+    res.json('Welcome to my app!');
+});
 
 // TODO: Start the server
 // Use the PORT from your environment variables or default to 3000
-
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
