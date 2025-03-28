@@ -20,6 +20,7 @@
 
 
 // TODO: Import mongoose
+import mongoose from 'mongoose';
 
 // TODO: Create a user schema with the following fields:
 // - firstName (String, required)
@@ -32,5 +33,53 @@
 //   - city (String, required)
 //   - state (String, required)
 //   - zipCode (String, required)
+// TODO: Create a user schema with the specified fields
+const userSchema = new mongoose.Schema({
+    firstName: {
+      type: String,
+      required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    address: {
+      street: {
+        type: String,
+        required: true
+      },
+      apartment: {
+        type: String,
+        required: false // optional field
+      },
+      city: {
+        type: String,
+        required: true
+      },
+      state: {
+        type: String,
+        required: true
+      },
+      zipCode: {
+        type: String,
+        required: true
+      }
+    }
+  });
+  
+  // TODO: Create and export the User model
+  const User = mongoose.model('User', userSchema);
+  
+  module.exports = User;
 
-// TODO: Create and export the User model
+
+

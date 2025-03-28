@@ -54,7 +54,7 @@ mongoose.connect(process.env.MONGODB_URI)
 // TODO: Define routes
 // For now, just create a simple root route that responds with a welcome message
 // Use routes
-app.use('/api', todoRouter);
+
 // Basic route
 app.get('/', (req, res) => {
     res.json('Welcome to my app!');
